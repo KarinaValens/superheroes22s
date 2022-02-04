@@ -1,5 +1,4 @@
-const superheroes = [
-  {
+const superheroes = [{
     name: "Roof watcher",
     powers: ["overthinking", "insomnia"],
     primaryNemesis: "day light",
@@ -498,9 +497,35 @@ const superheroes = [
   },
 ];
 
-alert(
-  "1. Checking if JS file is linked up correctly. \n2. Always open the inspector/console when woorking with the JS \n3. Write your code in the end of the js-file \n4. Don't use alert boxes for UI... \n5. Delete this message or comment it out"
-);
+/* alert(
+ "1. Checking if JS file is linked up correctly. \n2. Always open the inspector/console when woorking with the JS \n3. Write your code in the end of the js-file \n4. Don't use alert boxes for UI... \n5. Delete this message or comment it out"
+); */
 console.table(superheroes);
 
 /* write your code here */
+// declare that we want to apply the function showHero for each superHero from the array
+superheroes.forEach(showHero);
+
+function showHero(hero) {
+  //Step 1: Chose the <template>'s content
+  const template = document.querySelector("#myTemplate").content;
+  //Step 2: Make a clone
+  const clone = template.cloneNode(true);
+  //Step 3:Change the content of the clone
+  clone.querySelector("h2").textContent = `${hero.name}`;
+  clone.querySelector("p").textContent = `${hero.dob.day}/${hero.dob.month}/${hero.dob.year}`;
+  clone.querySelector("h3 span").textContent = hero.primaryNemesis;
+  clone.querySelector("img").src = hero.img;
+  clone.querySelector("figcaption").textContent = `Life Left ${hero.lifePercentage}%`;
+  // create an li for each power
+  hero.powers.forEach(function (power) {
+    const li = document.createElement("li");
+    li.textContent = power;
+    clone.querySelector("ul").appendChild(li);
+  })
+
+  // Step 4:Chose the new parent element
+  const parent = document.querySelector("main");
+  // Step 5: Add (append) the clone to the DOM
+  parent.appendChild(clone);
+}
